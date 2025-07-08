@@ -28,7 +28,7 @@ public class subarrayKSum {
             while(left<nums.length){
                 temp+=nums[left];
                 left++;
-                if(temp>=k){
+                if(temp>=k){ 
                     min=Math.min(min,left-right);
                 }
             }
@@ -49,5 +49,37 @@ public class subarrayKSum {
 }
 
 /*
- * 
+ * import java.util.*;
+
+public class subarrayKSum {
+    public static int shortestSubarray(int[] nums, int k) {
+        int n = nums.length;
+        long[] prefix = new long[n + 1];
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + nums[i];
+        }
+        int minLen = n + 1;
+        Deque<Integer> dq = new ArrayDeque<>();
+        for (int i = 0; i < prefix.length; i++) {
+            while (!dq.isEmpty() && prefix[i] - prefix[dq.peekFirst()] >= k) {
+                minLen = Math.min(minLen, i - dq.pollFirst());
+            }
+            while (!dq.isEmpty() && prefix[i] <= prefix[dq.peekLast()]) {
+                dq.pollLast();
+            }
+            dq.addLast(i);
+        }
+        return minLen <= n ? minLen : -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int arr[] = new int[n];
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+        System.out.println(shortestSubarray(arr, k));
+    }
+}
  */
